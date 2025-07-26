@@ -44,7 +44,7 @@ stage('Package') {
 stage('deploy') {
 steps {
 echo 'deployed...'
-bat 'mvn deployed'
+deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'a848acb8-b0d4-4018-ac4d-75ec6263ed86', path: '', url: 'http://localhost:8090/')], contextPath: null, war: '**/*.war'
 }
 }
 
