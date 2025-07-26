@@ -15,14 +15,13 @@ pipeline {
             }
 
         }
-stage('test') {
-  steps {
-echo 'testing...'
-bat 'mvn test'
-}
-}
-       
-stage('Package') {
+        stage('test'){
+            steps {
+                echo 'testing'
+                bat 'mvn test'
+            }
+        }
+        stage('Package') {
 
             steps {
 
@@ -41,18 +40,18 @@ stage('Package') {
                 echo 'Building...'
 
                 bat 'mvn install'
-stage('deploy') {
-steps {
-echo 'deployed...'
-deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'a848acb8-b0d4-4018-ac4d-75ec6263ed86', path: '', url: 'http://localhost:8090/')], contextPath: null, war: '**/*.war'
-}
-}
 
             }
 
         }
-
-    }
+stage('deploy') { 
+    steps{
+        echo 'deploying'
+        deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: 'tomcat', path: '', url: 'http://localhost:8080/')], contextPath: null, war: '**/*.war'
+    }   
 
 }
  
+    }
+}
+
